@@ -19,7 +19,7 @@ const Footer = () => {
             </p>
             <a
               className="text-dark fs-4"
-              href="https://github.com/ssahibsingh"
+              href="https://github.com/sauravraj3"
               target="_blank"
               rel="noreferrer"
             >
