@@ -8,7 +8,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
-const Products = () => {
+const Products = ({ currency }) => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(data);
   const [loading, setLoading] = useState(false);
@@ -71,6 +71,8 @@ const Products = () => {
     setFilter(updatedList);
   };
 
+  const conversionRate = 82; // 1 USD = 82 INR
+
   const ShowProducts = () => {
     return (
       <>
@@ -108,11 +110,16 @@ const Products = () => {
         </div>
 
         {filter.map((product) => {
+          const price =
+            currency === "USD"
+              ? product.price
+              : (product.price * conversionRate).toFixed(2);
+
           return (
             <div
               id={product.id}
               key={product.id}
-              className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4"
+              className="col-md-3 col-sm-6 col-xs-8 col-12 mb-4"
             >
               <div className="card text-center h-100" key={product.id}>
                 <img
@@ -130,9 +137,9 @@ const Products = () => {
                   </p>
                 </div>
                 <ul className="list-group list-group-flush">
-                  <li className="list-group-item lead">$ {product.price}</li>
-                  {/* <li className="list-group-item">Dapibus ac facilisis in</li>
-                    <li className="list-group-item">Vestibulum at eros</li> */}
+                  <li className="list-group-item lead">
+                    {currency} {price}
+                  </li>
                 </ul>
                 <div className="card-body">
                   <Link
